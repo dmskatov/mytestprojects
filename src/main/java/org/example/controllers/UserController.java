@@ -5,7 +5,6 @@ import org.example.exceptions.CustomException;
 import org.example.models.User;
 import org.example.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,6 +23,9 @@ public class UserController {
         userService.buyTicket(ticketId);
     }
 
-
+    @GetMapping("/api/UserTicket")
+    public User getUserTicket(@PathVariable Integer userId) throws CustomException {
+        return userService.getUserTickets(userId);
+    }
 
 }

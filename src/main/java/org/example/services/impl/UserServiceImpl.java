@@ -25,21 +25,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(User user) throws CustomException {
-//        boolean loginIsExist = userRepository.loginIsExist(user.getLogin());
-//        if (loginIsExist) {
-//            throw new CustomException("Login is exist, please, use other login");
-//        }
-//        userList.add(user);
-        userRepository.save(user);
-    }
-
-    @Override
-    public User getUserByLogin(String login) throws CustomException {
-        User user = userRepository.findUserByLogin(login);
-        if (user == null) {
-                throw new CustomException("User not found, please, enter correct login");
+        boolean loginIsExist = userRepository.loginIsExist(user.getLogin());
+        if (loginIsExist) {
+            throw new CustomException("Login is exist, please, use other login");
         }
-        return user;
+        userList.add(user);
+        userRepository.save(user);
     }
 
     @Override
@@ -54,10 +45,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserTickets(Integer userId) throws CustomException {
-        User user = userRepository.findTicketsByUser(userId);
-        if (user == null) {
-                throw new CustomException("User not found, please, enter correct user id");
-        }
-        return user;
+        return userRepository.findTicketByUser(userId);
     }
 }
